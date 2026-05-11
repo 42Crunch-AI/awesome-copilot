@@ -26,6 +26,10 @@ Read `~/.42crunch/conf/env` (macOS/Linux) or `%APPDATA%\42Crunch\conf\env` (Wind
 grep -E "^(FREEMIUM_TOKEN|API_KEY)=" "$HOME/.42crunch/conf/env" 2>/dev/null
 ```
 
+```powershell
+Select-String -Path "$env:APPDATA\42Crunch\conf\env" -Pattern "^(FREEMIUM_TOKEN|API_KEY)=" 2>$null
+```
+
 - **`FREEMIUM_TOKEN`** is set → **Freemium mode**. Use `--freemium-host stateless.42crunch.com:443` and `--token <FREEMIUM_TOKEN>` in all commands. Proceed silently.
 - **`API_KEY`** starts with `api_` or `ide_` → **Platform mode**. Read `PLATFORM_HOST` from the same file (required — run `42crunch-setup` to reconfigure if missing). Proceed silently.
 - **`API_KEY`** is set but does **not** start with `api_` or `ide_` → warn the user: `"Your API key doesn't match the expected format (api_... or ide_...). Please check it or run 42crunch-setup to reconfigure."` Stop — do not proceed.
@@ -46,7 +50,7 @@ grep -E "^(FREEMIUM_TOKEN|API_KEY)=" "$HOME/.42crunch/conf/env" 2>/dev/null
   - **question**: `"I see multiple OpenAPI files open. Which one should I use?"` — list each filename as an option.
 - If **no** OAS file can be resolved → call `AskUserQuestion`:
   - **question**: `"I couldn't find an OpenAPI file. Would you like me to generate one from your source code first?"` — options: `["Yes — generate from source code", "No — I'll provide a path"]`
-  - If **Yes** → invoke the `code-to-oas` skill, then resume with the generated file.
+  - If **Yes** → invoke the `42crunch-code-to-oas` skill, then resume with the generated file.
   - If **No** → ask the user to provide the file path and wait.
 
 ---
