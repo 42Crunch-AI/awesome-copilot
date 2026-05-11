@@ -4,7 +4,7 @@ Automate API security directly in GitHub Copilot with 42Crunch - audit OpenAPI s
 
 ## Overview
 
-The `api-security-testing` plugin is designed for AI-assisted development workflows, it provides continuous guardrails through an **audit->scan->remediate->validate** loop, ensuring APIs meet enterprise security standards before deployment.
+The `42crunch-api-security-testing` plugin is designed for AI-assisted development workflows, it provides continuous guardrails through an **audit->scan->remediate->validate** loop, ensuring APIs meet enterprise security standards before deployment.
 
 ## Commands
 
@@ -14,7 +14,7 @@ The `api-security-testing` plugin is designed for AI-assisted development workfl
 | [`/42crunch-audit`](./README.md#42crunch-audit) | Static security audit of an OpenAPI Specification file with scored findings and AI-assisted fixes |
 | [`/42crunch-scan`](./README.md#42crunch-scan) | Live conformance and authorization scan (BOLA/BFLA) against a running API |
 | [`/42crunch-api-security-testing`](./README.md#42crunch-api-security-testing) | Full audit + scan pipeline in a single session |
-| [`/code-to-oas`](./README.md#code-to-oas) | Generate a complete `openapi.json` from your API source code| 
+| [`/42crunch-code-to-oas`](./README.md#42crunch-code-to-oas) | Generate a complete `openapi.json` from your API source code| 
 
 ## Prerequisites
 
@@ -26,16 +26,10 @@ The `42c-ast` binary is downloaded and kept up to date automatically on first us
 
 ## Installation
 
-Add the 42Crunch marketplace:
+Install the `42crunch-api-security-testing` plugin:
 
 ```
-copilot plugin marketplace add 42Crunch-AI/copilot-plugins
-```
-
-Install the `api-security-testing` plugin:
-
-```
-copilot plugin install api-security-testing@42crunch-marketplace
+copilot plugin install 42crunch-api-security-testing@awesome-copilot
 ```
 
 ## Quick Start
@@ -120,7 +114,7 @@ Orchestrates Audit (Phase 1) and Scan (Phase 2) in sequence. Resolves the OAS fi
 
 ---
 
-### `code-to-oas`
+### `42crunch-code-to-oas`
 
 Analyses your API codebase and generates a complete `openapi.json`. Detects routes, parameters, request/response schemas, auth middleware, data models, and server config. Performs a self-review pass before writing the file.
 
@@ -130,7 +124,7 @@ Supported frameworks: Express, Fastify, Koa, Hapi, NestJS, FastAPI, Flask, Djang
 
 **Usage:**
 ```
-/code-to-oas
+/42crunch-code-to-oas
 ```
 
 ---
