@@ -22,7 +22,7 @@ Resolve the canonical path for the current OS:
 - macOS/Linux: `$HOME/.42crunch/bin/42c-ast`
 - Windows: `%APPDATA%\42Crunch\bin\42c-ast.exe`
 
-Initialize `BIN_DIR` and `BINARY_PATH` before any version checks:
+Resolve `BIN_DIR` and `BINARY_PATH`:
 
 ```bash
 # macOS / Linux
@@ -86,11 +86,13 @@ $PLATFORM_KEY = "windows-amd64"
 ## Step 2 — Fetch the manifest and resolve download details
 
 ```bash
+# macOS / Linux
 curl -fsSL https://repo.42crunch.com/downloads/42c-ast-manifest.json \
   -o /tmp/42c-ast-manifest.json
 ```
 
 ```powershell
+# Windows
 $ManifestPath = Join-Path $env:TEMP "42c-ast-manifest.json"
 Invoke-WebRequest -Uri "https://repo.42crunch.com/downloads/42c-ast-manifest.json" -OutFile $ManifestPath
 ```
@@ -105,6 +107,7 @@ matching `PLATFORM_KEY`. From the matching entry, extract:
 | `sha256` | `EXPECTED_SHA256` |
 
 ```bash
+# macOS / Linux
 if command -v python3 &>/dev/null; then
   MANIFEST_OUTPUT=$(python3 - "$PLATFORM_KEY" << 'EOF'
 import json, sys
@@ -135,6 +138,7 @@ EXPECTED_SHA256=$(echo "$MANIFEST_OUTPUT" | sed -n '3p')
 ```
 
 ```powershell
+# Windows
 $ManifestEntries = Get-Content $ManifestPath -Raw | ConvertFrom-Json
 $Match = $ManifestEntries | Where-Object { $_.architecture -eq $PLATFORM_KEY } | Select-Object -First 1
 if (-not $Match) {
